@@ -6,6 +6,14 @@ import Hero from '../components/home/Hero';
 import ProductCard from '../components/common/ProductCard';
 import TrustBar from '../components/home/TrustBar';
 
+// Imported Images
+import sareeImg from '../assets/images/saree.png';
+import kurtaImg from '../assets/images/kurta.png';
+import trousersImg from '../assets/images/trousers.png';
+import gownImg from '../assets/images/gown.png';
+import blockprintImg from '../assets/images/blockprint.png';
+import kaftanImg from '../assets/images/kaftan.png';
+
 // --- Mock Data ---
 const PRODUCTS = [
     {
@@ -13,7 +21,7 @@ const PRODUCTS = [
         name: 'Silk Chiffon Saree',
         category: 'Sarees',
         price: 12500,
-        image: '/images/saree.png',
+        image: sareeImg,
         tag: 'Best Seller'
     },
     {
@@ -21,7 +29,7 @@ const PRODUCTS = [
         name: 'Hand-Embroidered Kurta',
         category: 'Kurtas',
         price: 4800,
-        image: '/images/kurta.png',
+        image: kurtaImg,
         tag: 'New'
     },
     {
@@ -29,14 +37,14 @@ const PRODUCTS = [
         name: 'Linen Wide-Leg Trousers',
         category: 'Bottoms',
         price: 3200,
-        image: '/images/trousers.png',
+        image: trousersImg,
     },
     {
         id: 4,
         name: 'Velvet Evening Gown',
         category: 'Gowns',
         price: 18000,
-        image: '/images/gown.png',
+        image: gownImg,
         tag: 'Limited'
     },
     {
@@ -44,14 +52,14 @@ const PRODUCTS = [
         name: 'Cotton Block Print Saree',
         category: 'Sarees',
         price: 6500,
-        image: '/images/blockprint.png',
+        image: blockprintImg,
     },
     {
         id: 6,
         name: 'Embellished Kaftan',
         category: 'Kurtas',
         price: 5500,
-        image: '/images/kaftan.png',
+        image: kaftanImg,
     },
 ];
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import heroImage from '../../assets/images/hero.png';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ const Hero = () => {
         <section className="relative h-[80vh] md:h-[90vh] flex items-center justify-center overflow-hidden">
             <div className="absolute inset-0">
                 <img
-                    src="/images/hero.png"
+                    src={heroImage}
                     alt="Campaign"
                     className="w-full h-full object-cover object-top opacity-95"
                 />

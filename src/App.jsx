@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X, Search } from 'lucide-react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import MobileMenu from './components/layout/MobileMenu';
 import Home from './pages/Home';
 import NewArrivals from './pages/NewArrivals';
 import Collections from './pages/Collections';
@@ -52,6 +53,11 @@ function App() {
         </AnimatePresence>
 
         <CartDrawer />
+
+        <MobileMenu
+          isOpen={isMobileMenuOpen}
+          onClose={() => setIsMobileMenuOpen(false)}
+        />
 
         <Navbar
           onOpenSearch={() => setIsSearchOpen(true)}

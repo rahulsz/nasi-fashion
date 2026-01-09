@@ -1,10 +1,23 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Plus, Minus, ShoppingBag, Trash2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import useCartStore from '../../store/useCartStore';
+import useAuthStore from '../../store/useAuthStore';
 
 const CartDrawer = () => {
     const { items, isOpen, closeCart, updateQuantity, removeItem, getSubtotal } = useCartStore();
+    const { isAuthenticated } = useAuthStore();
+    const navigate = useNavigate();
+
+    const handleCheckout = () => {
+        if (isAuthenticated) {
+            navigate('/checkout');
+        } else {
+            navigate('/login', { state: { from: '/checkout' } });
+        }
+        closeCart();
+    };
 
     return (
         <AnimatePresence>
@@ -122,7 +135,10 @@ const CartDrawer = () => {
                                 <p className="text-xs text-slate-500 text-center">
                                     Shipping and taxes calculated at checkout.
                                 </p>
-                                <button className="w-full bg-slate-900 text-white py-4 font-bold tracking-widest uppercase hover:bg-amber-700 transition-colors">
+                                <button
+                                    onClick={handleCheckout}
+                                    className="w-full bg-slate-900 text-white py-4 font-bold tracking-widest uppercase hover:bg-amber-700 transition-colors"
+                                >
                                     Checkout
                                 </button>
                             </div>

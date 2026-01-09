@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import useAuthStore from '../../store/useAuthStore';
 
 const MobileMenu = ({ isOpen, onClose }) => {
     const location = useLocation();
@@ -60,8 +61,8 @@ const MobileMenu = ({ isOpen, onClose }) => {
                                                 to={item.path}
                                                 onClick={onClose}
                                                 className={`flex items-center justify-between px-6 py-4 text-base font-medium transition-colors ${isActive
-                                                        ? 'text-amber-700 bg-amber-50'
-                                                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                                                    ? 'text-amber-700 bg-amber-50'
+                                                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                                                     }`}
                                             >
                                                 <span>{item.name}</span>
@@ -76,20 +77,44 @@ const MobileMenu = ({ isOpen, onClose }) => {
                         {/* Footer / Extra Links */}
                         <div className="p-6 border-t border-slate-100 bg-slate-50/50">
                             <div className="space-y-4">
-                                <Link
-                                    to="/account"
-                                    onClick={onClose}
-                                    className="block text-sm font-medium text-slate-600 hover:text-amber-700 transition-colors"
-                                >
-                                    My Account
-                                </Link>
-                                <Link
-                                    to="/wishlist"
-                                    onClick={onClose}
-                                    className="block text-sm font-medium text-slate-600 hover:text-amber-700 transition-colors"
-                                >
-                                    Wishlist
-                                </Link>
+                                {useAuthStore(state => state.isAuthenticated) ? (
+                                    <>
+                                        <Link
+                                            to="/profile"
+                                            onClick={onClose}
+                                            className="block text-sm font-medium text-slate-600 hover:text-amber-700 transition-colors"
+                                        >
+                                            My Profile
+                                        </Link>
+                                        <button
+                                            onClick={() => {
+                                                useAuthStore.getState().logout();
+                                                onClose();
+                                                window.location.href = '/';
+                                            }}
+                                            className="block text-sm font-medium text-red-600 hover:text-red-700 transition-colors"
+                                        >
+                                            Sign Out
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link
+                                            to="/login"
+                                            onClick={onClose}
+                                            className="block text-sm font-medium text-slate-600 hover:text-amber-700 transition-colors"
+                                        >
+                                            Login
+                                        </Link>
+                                        <Link
+                                            to="/signup"
+                                            onClick={onClose}
+                                            className="block text-sm font-medium text-slate-600 hover:text-amber-700 transition-colors"
+                                        >
+                                            Sign Up
+                                        </Link>
+                                    </>
+                                )}
                             </div>
                             <p className="mt-6 text-xs text-slate-400">
                                 © 2024 Nasi Fashion House

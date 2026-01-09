@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, Search, ShoppingBag } from 'lucide-react';
+import { Menu, Search, ShoppingBag, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '../../utils';
 
 import useCartStore from '../../store/useCartStore';
+import useAuthStore from '../../store/useAuthStore';
 
 const Navbar = ({ onOpenSearch, onToggleMobileMenu }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const { getCartCount, toggleCart } = useCartStore();
+    const { isAuthenticated, user, logout } = useAuthStore();
     const cartCount = getCartCount();
 
     useEffect(() => {
@@ -59,6 +61,82 @@ const Navbar = ({ onOpenSearch, onToggleMobileMenu }) => {
                     <button onClick={onOpenSearch} className="p-2 hover:bg-slate-100 rounded-full transition-colors group">
                         <Search className="w-5 h-5 text-slate-600 group-hover:text-amber-700" />
                     </button>
+
+                    {/* Auth Dropdown */}
+                    <div className="relative group">
+                        <Link
+                            to={isAuthenticated ? "/profile" : "/login"}
+                            className="p-2 hover:bg-slate-100 rounded-full transition-colors inline-flex items-center justify-center"
+                        >
+                            <User className="w-5 h-5 text-slate-600 group-hover:text-amber-700" />
+                        </Link>
+
+                        {/* Hover Dropdown for Desktop */}
+                        {isAuthenticated && (
+                            <div className="absolute right-0 top-full pt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-50">
+                                <div className="bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden">
+
+                                    {/* Header */}
+                                    <Link
+                                        to="/profile"
+                                        state={{ activeTab: 'profile' }}
+                                        className="block px-4 py-4 border-b border-slate-100 hover:bg-slate-50 transition-colors group/header"
+                                    >
+                                        <p className="font-serif text-sm font-bold text-slate-900 group-hover/header:text-amber-700 transition-colors">Hello {user?.name || 'User'}</p>
+                                        <p className="text-xs text-slate-500 mt-0.5 truncate">{user?.email}</p>
+                                    </Link>
+
+                                    {/* Section 1 */}
+                                    <div className="py-2">
+                                        <Link
+                                            to="/profile"
+                                            state={{ activeTab: 'orders' }}
+                                            className="block px-4 py-2 text-sm text-slate-600 hover:text-slate-900 hover:font-medium"
+                                        >
+                                            Orders
+                                        </Link>
+                                        <Link
+                                            to="/profile"
+                                            state={{ activeTab: 'wishlist' }}
+                                            className="block px-4 py-2 text-sm text-slate-600 hover:text-slate-900 hover:font-medium"
+                                        >
+                                            Wishlist
+                                        </Link>
+                                        <Link
+                                            to="/profile"
+                                            state={{ activeTab: 'addresses' }}
+                                            className="block px-4 py-2 text-sm text-slate-600 hover:text-slate-900 hover:font-medium"
+                                        >
+                                            Saved Addresses
+                                        </Link>
+                                    </div>
+
+                                    <div className="h-px bg-slate-100 my-0"></div>
+
+                                    {/* Footer */}
+                                    <div className="py-2">
+                                        <Link
+                                            to="/profile"
+                                            state={{ activeTab: 'profile' }}
+                                            className="block px-4 py-2 text-sm text-slate-600 hover:text-slate-900 hover:font-medium"
+                                        >
+                                            Edit Profile
+                                        </Link>
+                                        <button
+                                            onClick={() => {
+                                                logout();
+                                                window.location.href = '/';
+                                            }}
+                                            className="block w-full text-left px-4 py-2 text-sm text-slate-600 hover:text-slate-900 hover:font-medium"
+                                        >
+                                            Logout
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
                     <div className="relative">
                         <button onClick={toggleCart} className="p-2 hover:bg-slate-100 rounded-full transition-colors group">
                             <ShoppingBag className="w-5 h-5 text-slate-600 group-hover:text-amber-700" />

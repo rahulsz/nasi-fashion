@@ -10,6 +10,10 @@ import NewArrivals from './pages/NewArrivals';
 import Collections from './pages/Collections';
 import Accessories from './pages/Accessories';
 import Editorial from './pages/Editorial';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Checkout from './pages/Checkout'; // Import Checkout
+import Profile from './pages/Profile'; // Import Profile
 import CartDrawer from './components/cart/CartDrawer';
 
 function App() {
@@ -71,6 +75,10 @@ function App() {
             <Route path="/collections" element={<Collections />} />
             <Route path="/accessories" element={<Accessories />} />
             <Route path="/editorial" element={<Editorial />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
 
